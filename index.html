@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大切なご家族を支えるあなたのためのセルフケア・アプリ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: 利用者が自身の心の状態に気づき、具体的なセルフケアをインタラクティブに体験できる、単一ページのスクロール形式アプリケーションを設計。1.「第二の患者」チェックリストで現状認識を促す。2.考え方の転換をビジュアルで示す。3.実践的なセルフケアツール（ジャーナリング、呼吸法）をその場で試せるようにする。4.次のステップとして外部サポート情報を提供する。この構造は、読者が記事の情報をただ受け取るだけでなく、対話的に自己の状態を理解し、具体的な行動を起こすまでをスムーズに導くために選択した。 -->
+    <!-- Visualization & Content Choices: 1.「第二の患者」の状態: インタラクティブなチェックリストを使用。利用者が自身の感情にチェックを入れることで、心の負担を可視化し、当事者意識を高める。(HTML/JS) 2.マインドセット転換: 「自己犠牲」と「セルフケア」を切り替えるトグルボタン。視覚的な変化で、考え方の転換がもたらすポジティブな影響を直感的に理解させる。(HTML/JS) 3.呼吸法: CSSアニメーションによるガイド。文字で読むだけでなく、視覚的なガイドに合わせて呼吸することで、リラックス効果をその場で体験できる。(CSS/JS) 4.ジャーナリング: 入力と解放を体験できるテキストエリア。書き出した感情をボタン一つで消去する動作が、感情のデトックスを象徴的に表現する。(HTML/JS) -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #FDFCF9;
+            color: #4A4A4A;
+        }
+        .calm-teal { color: #5A8F7B; }
+        .bg-calm-teal { background-color: #5A8F7B; }
+        .border-calm-teal { border-color: #5A8F7B; }
+        .bg-calm-tan { background-color: #D4B499; }
+        .bg-light-tan { background-color: #F5F1EC; }
+        .checkbox-custom:checked {
+            background-color: #5A8F7B;
+            border-color: #5A8F7B;
+        }
+        .breathing-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            transition: all 4s ease-in-out;
+        }
+        .breathing-circle.breathing {
+            animation: breathe 8s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
+        .fade-out {
+            transition: opacity 1.5s ease-out;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-16 max-w-4xl">
+
+        <header class="text-center mb-12 md:mb-20">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 calm-teal">大切な人を支える、あなた自身のために</h1>
+            <p class="text-lg md:text-xl text-gray-600">このアプリは、ご家族のケアを担うあなたの心を、少しだけ軽くするためのお手伝いをします。</p>
+        </header>
+
+        <main>
+
+            <!-- Section 1: The Second Patient -->
+            <section id="check-in" class="mb-16 md:mb-24 p-6 md:p-8 rounded-2xl bg-white shadow-lg">
+                <h2 class="text-2xl font-bold text-center mb-2 calm-teal">あなたは「第二の患者」になっていませんか？</h2>
+                <p class="text-center text-gray-600 mb-8">大切な人のために頑張るあなた自身の心も、ケアが必要です。最近、こんな風に感じることはありませんか？</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-lg">
+                    <label class="flex items-center p-4 rounded-lg bg-light-tan cursor-pointer transition-transform hover:scale-105">
+                        <input type="checkbox" class="h-6 w-6 mr-4 rounded border-gray-300 checkbox-custom focus:ring-calm-teal">
+                        <span>自分のことは後回しだ</span>
+                    </label>
+                    <label class="flex items-center p-4 rounded-lg bg-light-tan cursor-pointer transition-transform hover:scale-105">
+                        <input type="checkbox" class="h-6 w-6 mr-4 rounded border-gray-300 checkbox-custom focus:ring-calm-teal">
+                        <span>常に漠然とした不安がある</span>
+                    </label>
+                    <label class="flex items-center p-4 rounded-lg bg-light-tan cursor-pointer transition-transform hover:scale-105">
+                        <input type="checkbox" class="h-6 w-6 mr-4 rounded border-gray-300 checkbox-custom focus:ring-calm-teal">
+                        <span>些細なことで苛立つ</span>
+                    </label>
+                    <label class="flex items-center p-4 rounded-lg bg-light-tan cursor-pointer transition-transform hover:scale-105">
+                        <input type="checkbox" class="h-6 w-6 mr-4 rounded border-gray-300 checkbox-custom focus:ring-calm-teal">
+                        <span>よく眠れない</span>
+                    </label>
+                    <label class="flex items-center p-4 rounded-lg bg-light-tan cursor-pointer transition-transform hover:scale-105">
+                        <input type="checkbox" class="h-6 w-6 mr-4 rounded border-gray-300 checkbox-custom focus:ring-calm-teal">
+                        <span>孤独を感じることがある</span>
+                    </label>
+                     <label class="flex items-center p-4 rounded-lg bg-light-tan cursor-pointer transition-transform hover:scale-105">
+                        <input type="checkbox" class="h-6 w-6 mr-4 rounded border-gray-300 checkbox-custom focus:ring-calm-teal">
+                        <span>「強くならなきゃ」と思う</span>
+                    </label>
+                </div>
+                <p class="text-center text-gray-600 mt-8">一つでも当てはまるなら、あなたは知らず知らずのうちに心をすり減らしているかもしれません。でも、自分を責めないでください。それは、あなたが深く愛情を注いでいる証拠です。</p>
+            </section>
+
+            <!-- Section 2: Mindset Shift -->
+            <section id="mindset" class="mb-16 md:mb-24 text-center">
+                 <h2 class="text-2xl font-bold mb-4 calm-teal">考え方の転換：最高のサポートとは？</h2>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
+                    「自分の幸せを後回しにするのが当たり前」と考えがちですが、自己犠牲の上に成り立つ優しさは、いつか限界を迎えます。私の母は余命宣告から10年生きていますが、その経験から学んだのは、支える側が心身ともに健康でいることの大切さでした。
+                </p>
+                <div class="p-8 bg-white rounded-2xl shadow-lg inline-block">
+                    <p class="text-2xl font-bold text-gray-800">
+                        <span class="calm-teal">あなたが笑顔でいること。</span><br>
+                        それこそが、大切な人への最高のサポートです。
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Section 3: Self-Care Toolkit -->
+            <section id="toolkit" class="mb-16 md:mb-24">
+                <h2 class="text-2xl font-bold text-center mb-8 calm-teal">今日からできる「5分間」の心のセルフケア</h2>
+                <div class="space-y-12">
+                    
+                    <!-- Journaling Tool -->
+                    <div class="p-6 md:p-8 rounded-2xl bg-white shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">1. 「感情のデトックス」ジャーナリング</h3>
+                        <p class="text-gray-600 mb-6">誰にも見せる必要はありません。今感じている不安、苛立ち、悩みなどを、そのまま書き出してみましょう。心のモヤモヤを外に出すことで、気持ちが整理されます。（入力された内容は保存されません）</p>
+                        <textarea id="journal-input" class="w-full h-40 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-calm-teal focus:border-calm-teal transition" placeholder="ここに、今の気持ちを自由に書いてみてください..."></textarea>
+                        <button id="release-btn" class="mt-4 w-full md:w-auto px-8 py-3 bg-calm-teal text-white font-bold rounded-lg hover:bg-opacity-90 transition-all transform hover:scale-105">
+                            心を整理する
+                        </button>
+                    </div>
+
+                    <!-- Breathing Tool -->
+                    <div class="p-6 md:p-8 rounded-2xl bg-white shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">2. 「心を落ち着かせる」マインドフルネス呼吸法</h3>
+                        <p class="text-gray-600 mb-6">漠然とした不安に襲われた時、呼吸に意識を向けてみましょう。下の円の動きに合わせて、ゆっくりと呼吸を繰り返すだけで、高ぶった感情が静まっていきます。</p>
+                        <div class="flex flex-col items-center">
+                            <div id="breathing-circle" class="breathing-circle bg-calm-teal flex items-center justify-center">
+                                <span id="breathing-text" class="text-white text-lg font-bold"></span>
+                            </div>
+                            <button id="breathing-btn" class="mt-6 px-8 py-3 bg-calm-teal text-white font-bold rounded-lg hover:bg-opacity-90 transition-all transform hover:scale-105">
+                                呼吸法をはじめる
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Next Steps -->
+            <section id="next-steps" class="text-center p-6 md:p-8 rounded-2xl bg-light-tan">
+                <h2 class="text-2xl font-bold mb-4 calm-teal">最後に：一人で抱え込まないという選択</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    がん患者を支える道のりは、決して一人で歩むものではありません。NPOの患者会やがん相談支援センターには、同じ境遇の仲間や専門家がいます。<br><br>
+                    自分の気持ちを素直に話せる「居場所」を見つけること。そして、自分の幸せを諦めないこと。<br><br>
+                    それが、あなたの人生を大切にしながら、ご家族を笑顔で支え続けるための、大きな一歩となります。
+                </p>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 md:mt-24 pt-8 border-t border-gray-200">
+             <p class="text-gray-600">もしこの記事を読んで、少しでも心が軽くなったり、話してみたいと感じたら、<br class="hidden sm:inline">いつでもお気軽にご連絡ください。</p>
+             <p class="mt-4 text-sm text-gray-500">&copy; 2025 人生デザインコンシェルジュ</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Journaling Tool
+            const journalInput = document.getElementById('journal-input');
+            const releaseBtn = document.getElementById('release-btn');
+
+            releaseBtn.addEventListener('click', () => {
+                if (journalInput.value.trim() !== '') {
+                    journalInput.classList.add('fade-out');
+                    setTimeout(() => {
+                        journalInput.value = '';
+                        journalInput.classList.remove('fade-out');
+                    }, 1500);
+                }
+            });
+
+            // Breathing Tool
+            const breathingBtn = document.getElementById('breathing-btn');
+            const breathingCircle = document.getElementById('breathing-circle');
+            const breathingText = document.getElementById('breathing-text');
+            let isBreathing = false;
+            let breathingInterval;
+
+            const startBreathing = () => {
+                isBreathing = true;
+                breathingBtn.textContent = '呼吸法をとめる';
+                breathingCircle.classList.add('breathing');
+                
+                const updateText = () => {
+                    breathingText.textContent = '息を吸って…';
+                    setTimeout(() => {
+                        breathingText.textContent = '息を吐いて…';
+                    }, 4000);
+                };
+                
+                updateText();
+                breathingInterval = setInterval(updateText, 8000);
+            };
+
+            const stopBreathing = () => {
+                isBreathing = false;
+                breathingBtn.textContent = '呼吸法をはじめる';
+                breathingCircle.classList.remove('breathing');
+                breathingText.textContent = '';
+                clearInterval(breathingInterval);
+            };
+
+            breathingBtn.addEventListener('click', () => {
+                if (isBreathing) {
+                    stopBreathing();
+                } else {
+                    startBreathing();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
